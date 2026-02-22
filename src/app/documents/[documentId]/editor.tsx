@@ -8,6 +8,8 @@ import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
 import Image from '@tiptap/extension-image'
+import { Color } from '@tiptap/extension-color'
+import Highlight from '@tiptap/extension-highlight'
 import FontFamily from '@tiptap/extension-font-family'
 import TextStyle from '@tiptap/extension-text-style'
 import Underline from '@tiptap/extension-underline'
@@ -53,6 +55,10 @@ export const Editor = () =>{
         },
         extensions: [
             StarterKit,
+            Color,
+            Highlight.configure({
+                multicolor: true,
+            }),
             TextStyle,
             FontFamily,
             Underline,
