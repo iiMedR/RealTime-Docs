@@ -7,6 +7,7 @@ import Table from '@tiptap/extension-table'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
+import TextAlign from '@tiptap/extension-text-align'
 import Image from '@tiptap/extension-image'
 import { Color } from '@tiptap/extension-color'
 import Highlight from '@tiptap/extension-highlight'
@@ -56,6 +57,9 @@ export const Editor = () =>{
         },
         extensions: [
             StarterKit,
+            TextAlign.configure({
+                types: ["heading", "paragraph"]
+            }),
             Color,
             Highlight.configure({
                 multicolor: true,
