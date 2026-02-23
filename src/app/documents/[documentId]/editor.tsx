@@ -13,6 +13,7 @@ import Highlight from '@tiptap/extension-highlight'
 import FontFamily from '@tiptap/extension-font-family'
 import TextStyle from '@tiptap/extension-text-style'
 import Underline from '@tiptap/extension-underline'
+import Link from '@tiptap/extension-link'
 import ImageResize from 'tiptap-extension-resize-image'
 import { useEditor, EditorContent } from '@tiptap/react'
 
@@ -60,6 +61,11 @@ export const Editor = () =>{
                 multicolor: true,
             }),
             TextStyle,
+            Link.configure({
+                openOnClick: true,
+                autolink: true,
+                defaultProtocol: "https"
+            }),
             FontFamily,
             Underline,
             Image,
