@@ -70,16 +70,6 @@ export const Navbar = () => {
         onDownload(blob, `document.txt`); //TODO use document name
     }
 
-    const onSavePDF = () => {
-        if(!editor) return;
-
-        const content = editor.getText();
-        const blob = new Blob([content], {
-            type: "application/pdf",
-        });
-        onDownload(blob, `document.pdf`); //TODO use document name
-    }
-
     return(
         <nav className="flex items-center justify-between">
             <div className="flex gap-2 items-center">
