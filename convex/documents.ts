@@ -28,3 +28,48 @@ export const get = query({
   },
 });
 
+export const removeById = mutation({
+    args: { id: v.id("documents") },
+    handler: async (ctx, args) => {
+        const user = await ctx.auth.getUserIdentity();
+        if(!user){
+            throw new ConvexError("Unauthorized");
+        }
+
+        const document = await ctx.db.get(args.id);
+        if(!document) {
+            throw new ConvexError("document not found");
+        }
+
+        const isOwner = document.ownerId === user.subject;
+
+        if(!isOwner){
+            throw new ConvexError("unauthorized")
+        }
+
+        return await ctx.db.delete(args.id);
+    },
+})
+
+export const UpdateById = mutation({
+    args: { id: v.id("documents"), title: v.string() },
+    handler: async (ctx, args) => {
+        const user = await ctx.auth.getUserIdentity();
+        if(!user){
+            throw new ConvexError("Unauthorized");
+        }
+
+        const document = await ctx.db.get(args.id);
+        if(!document) {
+            throw new ConvexError("document not found");
+        }
+
+        const isOwner = document.ownerId === user.subject;
+
+        if(!isOwner){
+            throw new ConvexError("unauthorized")
+        }
+
+        return await ctx.db.patch(args.id, { title: args.title });
+    },
+})
