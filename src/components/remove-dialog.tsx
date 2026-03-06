@@ -56,7 +56,7 @@ export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
                                 await remove({ id: documentId });
 
                                 toast.success("Document Removed");
-                            } catch (err) {
+                            } catch {
                                 toast.error("Something went wrong");
                             } finally {
                                 setIsRemoving(false);

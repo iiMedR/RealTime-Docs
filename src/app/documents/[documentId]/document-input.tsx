@@ -48,7 +48,7 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
         setIsPending(true);
         mutate({ id, title: value })
          .then(() => {
-            toast.success("Document Updated"),
+            toast.success("Document Updated");
             setisEditing(false)
         })
          .catch(() => toast.error("Somethign went wrong"))

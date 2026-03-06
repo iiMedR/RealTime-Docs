@@ -14,7 +14,7 @@ import { Id } from "../../../../convex/_generated/dataModel";
 
 import { RIGHT_MARGIN_DEFAULT, LEFT_MARGIN_DEFAULT } from "@/constants/margins";
 
-    type User = {id: string; name: string; avatar: string;}
+    type User = {id: string; name: string; avatar: string; color: string}
 
 export function Room({ children }: { children: ReactNode }) {
     const params = useParams();
@@ -25,7 +25,12 @@ export function Room({ children }: { children: ReactNode }) {
         () => async () => {
             try{
                 const list = await getUsers();
-                setUsers(list);
+                const usersWithColor: User[] = list.map((user) => ({
+                    ...user,
+                    color: "",
+                }));
+
+                setUsers(usersWithColor);
             } catch {
                 toast.error("Failed to fetch users")
             }
