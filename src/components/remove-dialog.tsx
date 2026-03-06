@@ -16,6 +16,7 @@ import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 
 interface RemoveDialogProps {
@@ -24,7 +25,7 @@ interface RemoveDialogProps {
 }
 
 export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
-
+    const router = useRouter();
     const remove = useMutation(api.documents.removeById);
     const [isRemoving, setIsRemoving] = useState(false);
 
@@ -46,13 +47,20 @@ export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
                     </AlertDialogCancel>
                     <AlertDialogAction
                         disabled={isRemoving}
-                        onClick={(e) => {
+                        onClick={async (e) => {
                             e.stopPropagation();
                             setIsRemoving(true);
-                            remove({id: documentId})
-                                .catch(() => toast.error("Something went wrong"))
-                                .then(() => toast.success("Document Removed"))
-                                .finally(() => setIsRemoving(false));
+
+                            try {
+                                router.push("/");
+                                await remove({ id: documentId });
+
+                                toast.success("Document Removed");
+                            } catch (err) {
+                                toast.error("Something went wrong");
+                            } finally {
+                                setIsRemoving(false);
+                            }
                         }}
                     >
                         Delete
